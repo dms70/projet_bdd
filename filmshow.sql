@@ -1,0 +1,10 @@
+insert into filmshow (id_filmshow, datetimeshow, id_movieroom , id_movie) values (1, '2021-08-27', 1, 1);
+insert into filmshow (id_filmshow, datetimeshow, id_movieroom , id_movie) values (2, '2021-08-29', 1, 1);
+insert into filmshow (id_filmshow, datetimeshow, id_movieroom , id_movie) values (3, '2021-08-23', 1, 1);
+insert into filmshow (id_filmshow, datetimeshow, id_movieroom , id_movie) values (4, '2021-08-20', 1, 1);
+insert into filmshow (id_filmshow, datetimeshow, id_movieroom , id_movie) values (5, '2021-08-22', 1, 1);
+insert into filmshow (id_filmshow, datetimeshow, id_movieroom , id_movie) values (6, '2021-08-21', 1, 1);
+insert into filmshow (id_filmshow, datetimeshow, id_movieroom , id_movie) values (7, '2021-08-29', 2, 3);
+insert into filmshow (id_filmshow, datetimeshow, id_movieroom , id_movie) values (8, '2021-08-23', 2, 4);
+insert into filmshow (id_filmshow, datetimeshow, id_movieroom , id_movie) values (9, '2021-08-26', 2, 5);
+insert into filmshow (id_filmshow, datetimeshow, id_movieroom , id_movie) values (10, '2021-08-23', 2, 2);

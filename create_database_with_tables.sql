@@ -1,0 +1,16 @@
+CREATE DATABASE IF NOT EXISTS cinema CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE `cinema`.`booked` ( `id_booked` INT(10) NOT NULL AUTO_INCREMENT , `placenumber` INT(4) NOT NULL , `payment` VARCHAR(10) NOT NULL , `paymentdone` BOOLEAN NOT NULL , `id_filmshow` INT(10) NOT NULL , `id_spectator` INT(10) NOT NULL , `id_price` INT(3) NOT NULL , PRIMARY KEY (`id_booked`)) ENGINE = InnoDB;
+CREATE TABLE `cinema`.`cinemaplace` ( `id_cinemaplace` INT(3) NOT NULL , `name` VARCHAR(100) NOT NULL , `adress` VARCHAR(100) NOT NULL , `city` VARCHAR(100) NOT NULL , `cp` INT(5) NULL, PRIMARY KEY (`id_cinemaplace`) ) ENGINE = InnoDB;
+CREATE TABLE `cinema`.`filmshow` ( `id_filmshow` INT(10) NOT NULL , `datetimeshow` DATETIME NOT NULL , `id_movieroom` INT(5) NOT NULL , `id_movie` INT(10) NOT NULL, PRIMARY KEY (`id_filmshow`) ) ENGINE = InnoDB;
+CREATE TABLE `cinema`.`movie` ( `id_movie` INT(10) NOT NULL , `title` VARCHAR(100) NOT NULL , `resume` TEXT NOT NULL , `duration` TIME NOT NULL, PRIMARY KEY (`id_movie`) ) ENGINE = InnoDB;
+CREATE TABLE `cinema`.`movieroom` ( `id_movieroom` INT(5) NOT NULL , `totalplace` INT(5) NOT NULL , `namemovie_room` VARCHAR(100) NOT NULL , `id_cinemaplace` INT(3) NOT NULL, PRIMARY KEY (`id_movieroom`) ) ENGINE = InnoDB;
+CREATE TABLE `cinema`.`price` ( `id_price` INT(2) NOT NULL AUTO_INCREMENT , `priceticket` FLOAT NOT NULL , `categoryprice` VARCHAR(100) NOT NULL , PRIMARY KEY (`id_price`)) ENGINE = InnoDB;
+CREATE TABLE `cinema`.`spectator` ( `id_spectator` INT(15) NOT NULL AUTO_INCREMENT , `name` VARCHAR(100) NOT NULL , `surname` VARCHAR(100) NOT NULL , `email` VARCHAR(100) NOT NULL , `birthdate` DATE NOT NULL , `categoryspectator` VARCHAR(100) NOT NULL , `password` VARCHAR(255) NOT NULL , PRIMARY KEY (`id_spectator`)) ENGINE = InnoDB;
+CREATE TABLE `cinema`.`user` ( `id_user` INT(3) NOT NULL AUTO_INCREMENT , `email` VARCHAR(100) NOT NULL , `password` VARCHAR(255) NOT NULL , `name` VARCHAR(100) NOT NULL , `surname` VARCHAR(100) NOT NULL , `role` VARCHAR(100) NOT NULL , `id_cinemaplace` INT(3) NOT NULL , PRIMARY KEY (`id_user`)) ENGINE = InnoDB;
+
+use cinema;
+
+ALTER TABLE `booked` ADD CONSTRAINT `booked_filmshow` FOREIGN KEY (`id_filmshow`) REFERENCES `filmshow`(`id_filmshow`) ON DELETE RESTRICT ON UPDATE RESTRICT; ALTER TABLE `booked` ADD CONSTRAINT `booked_price` FOREIGN KEY (`id_price`) REFERENCES `price`(`id_price`) ON DELETE RESTRICT ON UPDATE RESTRICT; ALTER TABLE `booked` ADD CONSTRAINT `booked_spectator` FOREIGN KEY (`id_spectator`) REFERENCES `spectator`(`id_spectator`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `filmshow` ADD CONSTRAINT `filmshow_movie` FOREIGN KEY (`id_movie`) REFERENCES `movie`(`id_movie`) ON DELETE RESTRICT ON UPDATE RESTRICT; ALTER TABLE `filmshow` ADD CONSTRAINT `filmshow_movieroom` FOREIGN KEY (`id_movieroom`) REFERENCES `movieroom`(`id_movieroom`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `movieroom` ADD CONSTRAINT `movieroom_cinema` FOREIGN KEY (`id_cinemaplace`) REFERENCES `cinemaplace`(`id_cinemaplace`) ON DELETE RESTRICT ON UPDATE RESTRICT;

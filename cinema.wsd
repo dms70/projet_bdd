@@ -1,0 +1,91 @@
+@startuml
+hide circle
+
+class cinemaplace {
+id_cinemaplace: integer(3) {unique}
+name: varchar(100)
+adress: varchar(100)
+city: varchar(100)
+cp : integer(5)
+
+
+
+}
+
+class movieroom {
+id_movieroom: integer(5) {unique}
+namemovie_room : varchar(100)
+totalplace: integer(5)
+-- foreing key --
+id_cinemaplace : integer(3) <<FK>>
+}
+
+
+class filmshow {
+id_filmshow: integer(10) {unique}
+datetimeshow : datetime
+-- foreing key --
+id_movieroom : integer(5) <<FK>>
+id_movie : integer(10) <<FK>>
+}
+
+class booked {
+id_booked: integer(15) {unique}
+placenumber : integer(4)
+paymenttype : varchar(100)
+paymentdone : Boolean
+-- foreing key --
+id_filmshow : integer(10) <<FK>>
+id_spectator : integer(10) <<FK>>
+id_price : integer(3) <<FK>>
+}
+
+class movie {
+id_movie: integer(10) {unique}
+title : varchar(100)
+resume : varchar(1024) 
+duration : time
+}
+
+class price {
+id_price: integer(2) {unique}
+priceticket : float
+categoryprice : varchar(100)
+}
+
+class spectator {
+id_spectator: integer(15) {unique}
+email: varchar(100) {unique}
+name: varchar(100)
+surname: varchar(100)
+birthdate: date {frozen}
+categoryspectator : varchar(100)
+ -- encrypted --
+password string
+}
+
+
+class user {
+id_user: integer(3)
+email: varchar(100) {unique}
+name: varchar(100)
+surname: varchar(100)
+role: varchar(100)
+id_cinemaplace: integer(3)
+ -- encrypted --
+password string
+}
+
+
+booked "1-*"--"1"  spectator : has one>
+booked "1-*"--"1"  price : has one>
+booked "1-*"--"1"  filmshow : has one>
+
+cinemaplace "1-*"--"1-*" user : has one or many >
+
+filmshow "1-*"--"1" movieroom : has one >
+filmshow "1-*"--"1" movie : has one >
+
+movieroom "1-*"--"1" cinemaplace : has one >
+
+@enduml
